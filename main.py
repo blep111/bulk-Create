@@ -59,16 +59,12 @@ def linex():
     print(f"{W}———————————————————————————————")
 
 def get_approved_keys():
-    # Replace with your own URL where approved keys are listed (one key per line)
-    url = "https://raw.githubusercontent.com/blep111/bulk-Create/main/approved_keys.txt"  # Example: owner's GitHub raw file
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            return set(response.text.strip().split('\n'))
-        else:
-            return set()
-    except:
-        return set()
+    # Check local file for approved keys (one key per line)
+    key_file = "approved_keys.txt"
+    if os.path.exists(key_file):
+        with open(key_file, 'r') as f:
+            return set(line.strip() for line in f if line.strip())
+    return set()
 
 def check_admin_approval():
     key_file = "user_key.txt"
@@ -79,7 +75,7 @@ def check_admin_approval():
         if user_key in approved_keys:
             print(f"{X} {G}ACCESS GRANTED: PROCEEDING...")
             linex()
-            return True
+            return True  # Approved, full access granted
         else:
             print(f"{X} {R}ACCESS DENIED: WAITING FOR OWNER APPROVAL...")
             print(f"{X} YOUR KEY: {G}{user_key}")
@@ -98,7 +94,8 @@ def check_admin_approval():
 def main() -> None:
     banner()
     if not check_admin_approval():
-        return
+        return  # If not approved, exit early
+    # If approved, proceed with full functionality
     input(f"{X} PRESS ENTER TO START....")
     linex()
     for make in range(100):
@@ -236,7 +233,7 @@ def confirm_id(mail,uid,otp,data,ses):
         payload = {
         'fb_dtsg': 'NAcMC2x5X2VrJ7jhipS0eIpYv1zLRrDsb5y2wzau2bw3ipw88fbS_9A:0:0',
         'jazoest': re.search(r'"\d+"', data).group().strip('"'),
-        'lsd': re.search('"LSD",\[\],{"token":"([^"]+)"}',str(data)).group(1),
+        'lsd': re.search('"LSD",\$\$,{"token":"([^"]+)"}',str(data)).group(1),
         '__dyn': "",
         '__csr': "",
         '__req': "4",
