@@ -66,6 +66,12 @@ def get_approved_keys():
             return set(line.strip() for line in f if line.strip())
     return set()
 
+def generate_device_key():
+    # Generate a unique key based on the device's MAC address
+    mac = uuid.getnode()
+    device_key = str(uuid.uuid5(uuid.NAMESPACE_DNS, str(mac)))
+    return device_key
+
 def check_admin_approval():
     key_file = "user_key.txt"
     if os.path.exists(key_file):
@@ -82,10 +88,10 @@ def check_admin_approval():
             print(f"{X} SEND THIS KEY TO THE OWNER FOR APPROVAL.")
             sys.exit(1)
     else:
-        user_key = str(uuid.uuid4())
+        user_key = generate_device_key()  # Generate unique key per device
         with open(key_file, 'w') as f:
             f.write(user_key)
-        print(f"{X} {R}ACCESS DENIED: NEW USER DETECTED...")
+        print(f"{X} {R}ACCESS DENIED: NEW DEVICE DETECTED...")
         print(f"{X} YOUR UNIQUE KEY: {G}{user_key}")
         print(f"{X} COPY THIS KEY AND SEND IT TO THE OWNER FOR APPROVAL.")
         print(f"{X} ONCE APPROVED, RUN THE SCRIPT AGAIN.")
@@ -143,7 +149,7 @@ def main() -> None:
             'use_custom_gender': "false",
             'guid': "",
             'pre_form_step': "",
-            'encpass': '#PWD_BROWSER:0:{}:{}'.format(str(time.time()).split('.')[0],"MrCode@123"),
+            'encpass': '#PWD_BROWSER:0:{}:{}'.format(str(time.time()).split('.')[0],"unknowndev404"),
             'submit': "Sign Up",
             'fb_dtsg': "NAcMC2x5X2VrJ7jhipS0eIpYv1zLRrDsb5y2wzau2bw3ipw88fbS_9A:0:0",
             'jazoest': str(formula["jazoest"]),
@@ -266,8 +272,8 @@ def confirm_id(mail,uid,otp,data,ses):
             linex()
         else:
             cookie = (";").join([ "%s=%s" % (key,value) for key,value in ses.cookies.get_dict().items()])
-            print(f"{X} SUCCESS - {G}{uid}|MrCode@123|{cookie}")
-            open("/sdcard/SUCCESS-OK-ID.txt","a").write(uid+"|MrCode@123|"+cookie+"\n")
+            print(f"{X} SUCCESS - {G}{uid}|unknowndev404|{cookie}")
+            open("/sdcard/SUCCESS-OK-ID.txt","a").write(uid+"|unknowndev404|"+cookie+"\n")
             linex()
     except Exception as e:
         linex()
