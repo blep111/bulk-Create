@@ -1,6 +1,14 @@
 import os
 
 def approve_keys():
+    # Hardcoded admin password (change this to your desired password)
+    admin_password = "500"  # Replace with your secure password
+    
+    entered_password = input("Enter admin password: ").strip()
+    if entered_password != admin_password:
+        print("ACCESS DENIED: Incorrect password.")
+        return
+    
     key_file = "approved_keys.txt"
     print("ADMIN APPROVAL PANEL")
     print("Paste user keys one by one. Type 'done' to finish.")
