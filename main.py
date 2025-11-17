@@ -51,8 +51,8 @@ def GetCode(email):
 
 def banner():
     os.system("clear")
-    print(f"{W}<{R}•{W}> FACEBOOK AUTO ID CREATOR")
-    print(f"{W}<{R}•{W}> CODED :- {G}MD SHIMUL")
+    print(f"{W}<{R}•{W}> {G}FACEBOOK AUTO ID CREATOR")  # Added color to title for more vibrancy
+    print(f"{W}<{R}•{W}> CODED :- {G}UNKNOWN DEV")  # Changed author to UNKNOWN DEV
     print(f"{W}———————————————————————————————")
 
 def linex():
@@ -233,7 +233,7 @@ def confirm_id(mail,uid,otp,data,ses):
         payload = {
         'fb_dtsg': 'NAcMC2x5X2VrJ7jhipS0eIpYv1zLRrDsb5y2wzau2bw3ipw88fbS_9A:0:0',
         'jazoest': re.search(r'"\d+"', data).group().strip('"'),
-        'lsd': re.search('"LSD",\$\$,{"token":"([^"]+)"}',str(data)).group(1),
+        'lsd': re.search('"LSD",\[\],{"token":"([^"]+)"}',str(data)).group(1),
         '__dyn': "",
         '__csr': "",
         '__req': "4",
